@@ -34,7 +34,7 @@ function App() {
 
     var options = {
       method: "GET",
-      url: "http://localhost:8080/wp-json/clientes/v1/todos",
+      url: apiRoot.concat("/clientes/v1/todos"),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${jwtToken}`,

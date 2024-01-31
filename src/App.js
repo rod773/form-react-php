@@ -32,11 +32,9 @@ function App() {
   const getData = async function () {
     console.log(jwtToken);
 
-    let url = "http://localhost:8080/wp-json/clientes/v1/todos";
-
-    let options = {
+    var options = {
       method: "GET",
-      url: url,
+      url: "http://localhost:8080/wp-json/clientes/v1/todos",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${jwtToken}`,

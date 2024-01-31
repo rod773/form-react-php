@@ -15,17 +15,13 @@ function App() {
 
   const getToken = async function () {
     await axios
-      .post("http://localhost:8080/wp-json/jwt-auth/v1/token", {
+      .post(apiRoot.concat("/jwt-auth/v1/token"), {
         username: "admin",
         password: "@arcadio6558929",
       })
       .then(function (response) {
         jwtToken = response.data.token;
-        axios.interceptors.request.use(function (config) {
-          config.headers.Authorization = jwtToken;
 
-          return config;
-        });
         getData();
       })
       .catch(function (error) {
@@ -36,13 +32,24 @@ function App() {
   const getData = async function () {
     console.log(jwtToken);
 
+    let url = "http://localhost:8080/wp-json/clientes/v1/todos";
+
+    let options = {
+      method: "GET",
+      url: url,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    };
+
     axios
-      .get(url + "todos")
+      .request(options)
       .then(function (response) {
         console.log(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       });
   };
 
